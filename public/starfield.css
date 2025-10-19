@@ -1,0 +1,12 @@
+body {
+	background: url('/starfield.png') repeat center center;
+	background-size: cover;
+	animation: starfieldMove 60s linear infinite;
+}
+
+@keyframes starfieldMove {
+	0% { background-position: 0 0; }
+	100% { background-position: 1000px 1000px; }
+}
+/* Starfield background for MasseurMatch */
+/* Removido: agora o fundo é animado via canvas StarFieldBackground */

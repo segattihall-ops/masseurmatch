@@ -1,0 +1,69 @@
+
+@keyframes rainbow-swap {
+  0%,100% { background-position: 0% 0%; }
+  40% { background-position: 100% 0%; }
+  60% { background-position: 0% 0%; }
+}
+.animate-rainbow-swap {
+  animation: rainbow-swap 4s linear infinite;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+.animate-fadeSlideUp {
+  animation: fadeSlideUp 1s ease forwards;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+  background-color: #000;
+  color: #e5e7eb;
+  font-family: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background-color: rgba(33, 243, 101, 0.4);
+}
+
+a {
+  color: #21f365;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+@keyframes smoke-move {
+  0% { transform: translate3d(0,0,0) scale(1); }
+  50% { transform: translate3d(2%, -2%, 0) scale(1.05); }
+  100% { transform: translate3d(0,0,0) scale(1); }
+}
+@keyframes smoke-move-rev {
+  0% { transform: translate3d(0,0,0) scale(1); }
+  50% { transform: translate3d(-2%, 2%, 0) scale(1.05); }
+  100% { transform: translate3d(0,0,0) scale(1); }
+}
+.animate-smoke-move { animation: smoke-move infinite ease-in-out; }
+.animate-smoke-move-rev { animation: smoke-move-rev infinite ease-in-out; }
+
+.smoke-animation {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent 70%);
+  opacity: 0.5;
+  animation: smoke-move 20s infinite ease-in-out;
+  pointer-events: none;
+}
