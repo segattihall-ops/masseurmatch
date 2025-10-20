@@ -43,6 +43,41 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+/* Mobile optimization */
+@media (hover: none) and (pointer: coarse) {
+  /* Touch-friendly tap highlights */
+  a, button, input[type="checkbox"], input[type="submit"] {
+    -webkit-tap-highlight-color: rgba(33, 243, 101, 0.3);
+  }
+  
+  /* Remove hover states on touch devices */
+  *:hover {
+    transition-duration: 0ms;
+  }
+}
+
+/* Improve touch targets on mobile */
+@media (max-width: 640px) {
+  button, a, input[type="checkbox"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Smooth scrolling for all devices */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Disable scroll-behavior for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
 @keyframes smoke-move {
   0% { transform: translate3d(0,0,0) scale(1); }
   50% { transform: translate3d(2%, -2%, 0) scale(1.05); }
