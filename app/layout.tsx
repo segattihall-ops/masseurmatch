@@ -18,13 +18,14 @@ export const metadata: Metadata = {
     url: "https://masseurmatch.vercel.app",
     siteName: "MasseurMatch",
     type: "website"
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true
   }
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true
 };
 
 export default function RootLayout({

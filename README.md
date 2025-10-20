@@ -34,7 +34,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 MasseurMatch is optimized for mobile devices with the following features:
 
 ### Mobile-Friendly Features
-- ✅ Viewport meta tag configured for proper scaling on all devices
+- ✅ A viewport meta tag configured for proper scaling on all devices
 - ✅ Touch targets minimum 44x44px for easy finger navigation
 - ✅ Responsive text sizes using Tailwind's responsive classes (sm:, md:, lg:)
 - ✅ Touch-optimized CSS with `-webkit-tap-highlight-color`

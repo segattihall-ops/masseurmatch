@@ -8,14 +8,14 @@ The MasseurMatch application has been optimized for mobile devices to ensure an 
 
 ## 1. Viewport Meta Tag (layout.tsx)
 
-**Added proper viewport configuration:**
+**Added proper viewport configuration as a separate export:**
 ```typescript
-viewport: {
+export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   userScalable: true
-}
+};
 ```
 
 **Why this matters:**
@@ -150,9 +150,8 @@ All interactive elements now meet WCAG 2.1 Level AAA guidelines (minimum 44x44px
 ## 9. Accessibility Features
 
 ### WCAG 2.1 Compliance
-- ✅ **Level AA**: All touch targets ≥ 44x44px
+- ✅ **Level AAA**: All touch targets ≥ 44x44px (Success Criterion 2.5.5)
 - ✅ **Level AA**: Sufficient color contrast maintained
-- ✅ **Level AAA**: Touch targets meet enhanced size requirements
 - ✅ **Proper labels**: All form inputs have labels
 - ✅ **Keyboard navigation**: Works on mobile keyboards
 - ✅ **Motion preferences**: Respects user's reduced motion settings
@@ -161,7 +160,7 @@ All interactive elements now meet WCAG 2.1 Level AAA guidelines (minimum 44x44px
 
 All changes use widely-supported CSS and HTML:
 - ✅ **Viewport meta tag**: Supported by all modern browsers
-- ✅ **CSS Media Queries**: Universal support
+- ✅ **CSS Media Queries**: Widely supported across modern browsers
 - ✅ **Flexbox/Grid**: Supported on iOS 9+, Android 4.4+
 - ✅ **Touch events**: Supported on all touch devices
 - ✅ **Tailwind classes**: Generate standard CSS
