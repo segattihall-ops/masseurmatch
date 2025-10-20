@@ -19,7 +19,7 @@ MasseurMatch is an intelligent LGBTQ+ massage directory that connects clients wi
 
 - Use TypeScript for all new files (.tsx for React components, .ts for utilities)
 - Enable strict type checking - follow `tsconfig.json` settings
-- Use `"use client"` directive for components that use client-side React features (hooks, event handlers)
+- Use `"use client"` directive (as a string literal) for components that use client-side React features (hooks, event handlers)
 - Prefer functional components with hooks over class components
 - Use proper TypeScript types instead of `any` whenever possible
 - Use `const` for variables that won't be reassigned, `let` otherwise
@@ -140,7 +140,7 @@ This project serves the LGBTQ+ community. When generating content, comments, or 
 
 ## Don't
 
-- Don't use `console.log` in production code - use proper logging if needed
+- Don't use `console.log` in production code - consider structured logging solutions when needed (e.g., Winston, Pino, or Next.js server-side logging)
 - Don't commit `node_modules/`, `.next/`, `.env*` files
 - Don't bypass TypeScript type checking with `@ts-ignore` without good reason
 - Don't create inline styles when Tailwind utilities can be used
