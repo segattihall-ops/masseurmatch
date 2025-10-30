@@ -64,12 +64,12 @@ export default function ChatBox() {
   return (
     <div
       className="
-        w-full max-w-5xl h-full min-h-[240px] sm:min-h-[280px] md:min-h-[420px] md:h-[60vh]
+        w-full max-w-5xl h-full min-h-[220px] md:min-h-[420px] md:h-[60vh]
         bg-black/40 border border-white/10 backdrop-blur-2xl
         rounded-2xl md:rounded-[2.5rem] shadow-[0_0_40px_6px_rgba(0,0,0,0.7)]
         flex flex-col justify-between p-3 sm:p-4 md:p-8 text-white
         transition-all duration-500 hover:shadow-[0_0_80px_20px_rgba(0,0,0,0.85)]
-        mx-auto touch-manipulation
+        mx-auto
       "
       aria-label="Knotty chat"
     >
@@ -97,9 +97,8 @@ export default function ChatBox() {
           aria-label="Enter your email or message"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="w-full bg-[#0a0a0a]/70 border border-white/10 rounded-full px-4 py-3 sm:px-5 sm:py-3 
-          text-white placeholder-gray-500 focus:ring-2 focus:ring-white outline-none transition text-sm sm:text-base
-          min-h-[44px] touch-manipulation"
+          className="w-full bg-[#0a0a0a]/70 border border-white/10 rounded-full px-4 py-2 sm:px-5 sm:py-3 
+          text-white placeholder-gray-500 focus:ring-1 focus:ring-white outline-none transition text-sm sm:text-base"
         />
 
   <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs sm:text-sm text-gray-400">
@@ -109,7 +108,7 @@ export default function ChatBox() {
               type="checkbox"
               checked={accepted}
               onChange={(e) => setAccepted(e.target.checked)}
-              className="w-5 h-5 sm:w-4 sm:h-4 rounded border-gray-500 bg-gray-800 min-w-[20px] min-h-[20px] sm:min-w-4 sm:min-h-4 touch-manipulation cursor-pointer"
+              className="w-4 h-4 rounded border-gray-500 bg-gray-800 min-w-4 min-h-4"
             />
             <label htmlFor="accept-terms">
               I agree to{" "}
@@ -122,9 +121,9 @@ export default function ChatBox() {
           <button
             type="submit"
             disabled={!accepted || !input.trim()}
-            className={`px-6 py-3 sm:px-5 sm:py-2 rounded-full font-semibold transition-all min-h-[44px] touch-manipulation ${
+            className={`px-5 py-2 rounded-full font-semibold transition-all ${
               accepted && input.trim()
-                ? "bg-white text-black hover:bg-gray-300 active:bg-gray-400"
+                ? "bg-white text-black hover:bg-gray-300"
                 : "bg-gray-600 text-gray-300 cursor-not-allowed"
             }`}
           >
