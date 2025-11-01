@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
+  typedRoutes: true,
+  eslint: {
+    dirs: ["app"],
+  },
+  poweredByHeader: false,
 };
 
 export default nextConfig;
