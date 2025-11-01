@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MasseurMatch — Coming Soon
+
+MasseurMatch is building the most intelligent LGBTQ+ massage directory. This repository contains the public landing page and conversational waitlist concierge powered by Google Gemini.
 
 ## Getting Started
 
-First, run the development server:
+1. Copy the example environment variables:
+
+   ```bash
+   cp .env.local.example .env.local # if you create an example file
+   ```
+
+   Or create `.env.local` with the following keys:
+
+   ```bash
+   GOOGLE_API_KEY=your_gemini_key
+   NODE_ENV=development
+   ```
+
+2. Install dependencies and start the development server:
+
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+3. Visit [`http://localhost:3000`](http://localhost:3000) to explore the landing page and chat with Knotty.
+
+## Available Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the Next.js development server. |
+| `npm run build` | Create a production build. |
+| `npm run start` | Serve the production build. |
+
+## Linting & Type Safety
+
+This project uses ESLint and TypeScript. Before opening a pull request, run:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx eslint .
+npx tsc --noEmit
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `GOOGLE_API_KEY` — Required for the `/api/chat` route to fetch live responses from Gemini. Use a mock or leave undefined during development to receive a placeholder response.
+- `NODE_ENV` — Used by Next.js to differentiate between development and production.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Never commit `.env.local` or any secret values. The file is ignored via `.gitignore`.
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+  api/chat/route.ts   # Server route for Gemini responses
+  components/         # UI components for the hero chat experience
+  page.tsx            # Landing page content
+  terms/page.tsx      # Pre-launch legal placeholder
+public/
+  favicon.ico
+  globe.svg
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Tailwind CSS powers styling via `tailwind.config.js` and `postcss.config.mjs`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+This project targets deployment on Vercel. Ensure the following secrets are configured in your deployment environment:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `GOOGLE_API_KEY`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+
+1. Fork the repository and create a new branch for your feature or fix.
+2. Make your changes and run the quality checks listed above.
+3. Submit a pull request detailing your updates and testing.
+
+---
+
+© MasseurMatch. All rights reserved.

@@ -1,59 +1,93 @@
 import { NextResponse } from "next/server";
 
+const GEMINI_MODEL = "models/gemini-1.5-flash";
+
+async function callGemini(prompt: string, apiKey: string) {
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/${GEMINI_MODEL}:generateContent?key=${apiKey}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+      body: JSON.stringify({
+        contents: [
+          {
+            role: "user",
+            parts: [
+              {
+                text: prompt,
+              },
+            ],
+          },
+        ],
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 300,
+        },
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(`Gemini request failed: ${response.status} ${errorBody}`);
+  }
+
+  const data = await response.json();
+  const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (!reply) {
+    throw new Error("Gemini response missing candidate text");
+  }
+
+  return reply;
+}
+
 export async function POST(req: Request) {
   try {
     const { message } = await req.json();
-    if (!message) {
-      return NextResponse.json({ error: "Message required" }, { status: 400 });
+    const userMessage = typeof message === "string" ? message.trim() : "";
+
+    if (!userMessage) {
+      return NextResponse.json(
+        { error: "Please include a message." },
+        { status: 400 }
+      );
     }
 
-    const apiKey = "AIzaSyC3qoX8mhLv1vq2_m9mwkEdEYUarFekPGE"; // api google key
+    const apiKey = process.env.GOOGLE_API_KEY;
+
     if (!apiKey) {
-      // In development, return a friendly mock so dev flow works without secrets.
       if (process.env.NODE_ENV !== "production") {
         return NextResponse.json({
           reply:
-            "[DEV MODE] Hi! OPENAI_API_KEY is not set, so I'm returning a local mock. Set the env var to talk to the real AI.",
+            "[DEV MODE] Set GOOGLE_API_KEY in your environment to enable live responses.",
         });
       }
-      console.error("Missing OPENAI_API_KEY env var");
-      return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
+
+      console.error("Missing GOOGLE_API_KEY environment variable");
+      return NextResponse.json(
+        { error: "Service unavailable." },
+        { status: 503 }
+      );
     }
 
-  const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=" + apiKey, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      contents: [
-        {
-          role: "user",
-          parts: [
-            {
-              text: `You are Knotty, the friendly AI host of MasseurMatch — the most intelligent LGBTQ+ massage directory. You answer clearly, kindly, and professionally.\n\nUser: ${message}`
-            }
-          ]
-        }
-      ],
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 300,
-      }
-    }),
-  });
+    const systemPrompt =
+      "You are Knotty, the friendly AI host for MasseurMatch — the most intelligent LGBTQ+ massage directory. \n" +
+      "Answer with warmth, professionalism, and inclusivity. Keep responses concise (3-4 sentences) and offer to help users learn more about the directory or join the waitlist when appropriate.";
 
-    if (!response.ok) {
-      const err = await response.text();
-      console.error("Gemini error:", err);
-      return NextResponse.json({ error: "AI service error" }, { status: 502 });
-    }
+    const reply = await callGemini(
+      `${systemPrompt}\n\nUser: ${userMessage}`,
+      apiKey
+    );
 
-    const data = await response.json();
-    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "I'm here, but something went wrong!";
     return NextResponse.json({ reply });
-  } catch (err) {
-    console.error("Chat API error:", err);
-    return NextResponse.json({ error: "Failed to connect to AI service." }, { status: 500 });
+  } catch (error) {
+    console.error("Chat API error", error);
+    return NextResponse.json(
+      { error: "Unable to reach the AI service right now." },
+      { status: 500 }
+    );
   }
 }
